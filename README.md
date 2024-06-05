@@ -1,6 +1,6 @@
 # fpa-specr
 
-Floating point number arithmetics (`+`, `-`, `*` and `/`) and `sqrt`
+Floating point arithmetics (`+`, `-`, `*` and `/`) and `sqrt`
 with specified rounding mode.
 
 ```rust
