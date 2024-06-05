@@ -1,0 +1,16 @@
+Checks: '
+  bugprone-*,
+  cert-*-c,
+  readability-*,
+  clang-analyzer-*,
+  clang-diagnostic-*,
+  -bugprone-easily-swappable-parameters,
+  -readability-identifier-length'
+HeaderFileExtensions:
+  - h
+ImplementationFileExtensions:
+  - c
+FormatStyle: llvm
+CheckOptions:
+  bugprone-reserved-identifier.AllowedIdentifiers: '__STDC_WANT_IEC_60559_TYPES_EXT__;'
+  cert-dcl37-c.AllowedIdentifiers: '__STDC_WANT_IEC_60559_TYPES_EXT__;'
