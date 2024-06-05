@@ -16,5 +16,7 @@ categories = ["mathematics", "science"]
 cc = { version = "1" }
 
 [features]
-f16 = []
-f128 = []
+f16-arithmetics = []
+f16-math = []
+f128-arithmetics = []
+f128-math = []

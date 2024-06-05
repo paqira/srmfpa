@@ -1,5 +1,8 @@
-#![cfg_attr(feature = "f16", feature(f16))]
-#![cfg_attr(feature = "f128", feature(f128))]
+#![cfg_attr(any(feature = "f16-arithmetics", feature = "f16-math"), feature(f16))]
+#![cfg_attr(
+    any(feature = "f128-arithmetics", feature = "f128-math"),
+    feature(f128)
+)]
 
 //! Rounding-mode-aware floating point number arithmetics (`+`, `-`, `*` and `/`) and `sqrt`.
 //!
@@ -39,9 +42,9 @@ use core::ffi::c_int;
 mod r#impl;
 mod internal;
 
-#[cfg(feature = "f128")]
+#[cfg(any(feature = "f128-arithmetics", feature = "f128-math"))]
 pub use r#impl::f128;
-#[cfg(feature = "f16")]
+#[cfg(any(feature = "f16-arithmetics", feature = "f16-math"))]
 pub use r#impl::f16;
 pub use r#impl::f32;
 pub use r#impl::f64;
@@ -94,9 +97,9 @@ impl RoundMode {
 mod sealed {
     pub trait Sealed {}
 
-    #[cfg(feature = "f16")]
+    #[cfg(any(feature = "f16-arithmetics", feature = "f16-math"))]
     impl Sealed for f16 {}
-    #[cfg(feature = "f128")]
+    #[cfg(any(feature = "f128-arithmetics", feature = "f128-math"))]
     impl Sealed for f128 {}
     impl Sealed for f32 {}
     impl Sealed for f64 {}
