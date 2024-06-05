@@ -5,6 +5,8 @@
 //!
 //! ```
 //! use fpa_specr::prelude::*;
+//! 
+//! // Support add, sub, mul, div and sqrt
 //!
 //! assert_eq!(0.1f64.round_ties_even_add(0.2), 0.30000000000000004);
 //! assert_eq!(0.1f64.ciel_add(0.2), 0.30000000000000004);
