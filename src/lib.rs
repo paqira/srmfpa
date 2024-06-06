@@ -38,7 +38,7 @@
 //!
 //! [`fpa_specr`][mod@self] uses the default C compiler options of `cc`,
 //! and does not (explicitly) specify other options.
-//! It is recommended to pass corresponding options (`-frounding-math`, `-std=c23`, `-mfma` etc.)
+//! It is recommended to pass corresponding options (`-lm`, `-std=c11`, `-frounding-math`, `-mfma` etc.)
 //! to obtain the desired result.
 //! See [`cc` crate document][cc_doc] for detail of configuration.
 //!
