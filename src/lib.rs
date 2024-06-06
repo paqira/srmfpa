@@ -5,7 +5,7 @@
 )]
 #![cfg_attr(test, feature(float_next_up_down))]
 
-//! Floating point arithmetics (`+`, `-`, `*` and `/`) and `sqrt` with specified rounding mode.
+//! Floating point arithmetics (add, sub, mul, div and mul_add) and `sqrt` with specified rounding mode.
 //!
 //! ```
 //! use fpa_specr::prelude::*;
@@ -34,10 +34,10 @@
 //! # Notes on Correctness and Configuration
 //!
 //! Correctness depends on using C compiler and libc,
-//! because apis of [`fpa_specr`][mod@self] call floating point ops implemented in C with `<fenv.h>`.
+//! because APIs of [`fpa_specr`][mod@self] call floating point ops implemented in C with `<fenv.h>`.
 //!
-//! [`fpa_specr`][mod@self] does not explicitly specify C compiler options.
-//! It may require to explicitly pass option (`-frounding-math`, `-std=c23`, `-mfma` etc.)
+//! [`fpa_specr`][mod@self] does not _explicitly_ specify any C compiler options.
+//! It is recommended to pass corresponding options (`-frounding-math`, `-std=c23`, `-mfma` etc.)
 //! to obtain the desired result.
 //! See [`cc` crate document][cc_doc] for detail of configuration.
 //!
@@ -76,12 +76,13 @@ extern "C" {
 pub enum RoundingMode {
     /// To nearest, ties to even (`TONEAREST` in C).
     NearestTiesEven,
-    /// Toward 0 (trunc; `TOWARDZERO` in C).
+    /// Toward 0 (trunc, `TOWARDZERO` in C).
     TowardZero,
-    /// Toward +∞ (ciel; `UPWARD` in C).
+    /// Toward +∞ (ciel, `UPWARD` in C).
     TowardPosInf,
-    /// Toward -∞ (floor; `DOWNWARD` in C).
+    /// Toward -∞ (floor, `DOWNWARD` in C).
     TowardNegInf,
+
 }
 
 impl RoundingMode {
@@ -111,7 +112,7 @@ mod sealed {
     impl Sealed for f64 {}
 }
 
-/// Provides arithmetics (`+`, `-`, `*` and `/`) with specified rounding mode.
+/// Provides arithmetics (add, sub, mul, div and mul_add) with specified rounding mode.
 pub trait RoundingArithmetic<T = Self>: sealed::Sealed {
     /// The resulting type.
     type Output;
@@ -148,7 +149,7 @@ pub trait RoundingArithmetic<T = Self>: sealed::Sealed {
     fn round_mul_add(self, a: T, b: T, mode: &RoundingMode) -> Self::Output;
 }
 
-/// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding to nearest, ties to even.
+/// Provides arithmetics (add, sub, mul, div and mul_add) as rounding to nearest, ties to even.
 pub trait RoundTiesEvenArithmetic<T = Self>: sealed::Sealed {
     /// The resulting type.
     type Output;
@@ -185,7 +186,7 @@ pub trait RoundTiesEvenArithmetic<T = Self>: sealed::Sealed {
     fn round_ties_even_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
-/// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding toward +∞.
+/// Provides arithmetics (add, sub, mul, div and mul_add) as rounding toward +∞.
 pub trait CielArithmetic<T = Self>: sealed::Sealed {
     /// The resulting type.
     type Output;
@@ -222,7 +223,7 @@ pub trait CielArithmetic<T = Self>: sealed::Sealed {
     fn ciel_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
-/// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding toward -∞.
+/// Provides arithmetics (add, sub, mul, div and mul_add) as rounding toward -∞.
 pub trait FloorArithmetic<T = Self>: sealed::Sealed {
     /// The resulting type.
     type Output;
@@ -260,7 +261,7 @@ pub trait FloorArithmetic<T = Self>: sealed::Sealed {
     fn floor_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
-/// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding toward 0.
+/// Provides arithmetics (add, sub, mul, div and mul_add) as rounding toward 0.
 pub trait TruncArithmetic<T = Self>: sealed::Sealed {
     /// The resulting type.
     type Output;
