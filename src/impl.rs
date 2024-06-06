@@ -4,3 +4,9 @@ pub mod f128;
 pub mod f16;
 pub mod f32;
 pub mod f64;
+
+/// wrapper of panic!(..)
+#[cold]
+pub(crate) fn error() -> ! {
+    panic!("fail to set/restore rounding mode")
+}

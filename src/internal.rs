@@ -11,7 +11,7 @@ macro_rules! impl_func_unary {
             let mut dst: $ty = Default::default();
             match unsafe { $c_name(mode.as_c_int(), a, &mut dst) } {
                 0 => dst,
-                _ => panic!("fail to set/restore rounding mode"),
+                _ => crate::r#impl::error(),
             }
         }
     };
@@ -30,7 +30,7 @@ macro_rules! impl_func_binary {
             let mut dst: $ty = Default::default();
             match unsafe { $c_name(mode.as_c_int(), a, b, &mut dst) } {
                 0 => dst,
-                _ => panic!("fail to set/restore rounding mode"),
+                _ => crate::r#impl::error(),
             }
         }
     };
@@ -71,7 +71,7 @@ macro_rules! impl_round_func_binary_all {
             let mut dst: $ty = Default::default();
             match unsafe { $fma_fn(mode.as_c_int(), a, b, c, &mut dst) } {
                 0 => dst,
-                _ => panic!("fail to set/restore rounding mode"),
+                _ => crate::r#impl::error(),
             }
         }
     }
