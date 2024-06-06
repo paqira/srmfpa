@@ -13,6 +13,7 @@ extern "C" {
     fn c_sub_f32(mode: c_int, a: f32, b: f32, dst: *mut f32) -> c_int;
     fn c_mul_f32(mode: c_int, a: f32, b: f32, dst: *mut f32) -> c_int;
     fn c_div_f32(mode: c_int, a: f32, b: f32, dst: *mut f32) -> c_int;
+    fn c_fma_f32(mode: c_int, a: f32, b: f32, c: f32, dst: *mut f32) -> c_int;
     fn c_sqrt_f32(mode: c_int, a: f32, dst: *mut f32) -> c_int;
 }
 
@@ -22,6 +23,7 @@ impl_round_func_binary_all!(
     round_sub => c_sub_f32,
     round_mul => c_mul_f32,
     round_div => c_div_f32,
+    round_mul_add => c_fma_f32,
 );
 
 impl_non_round_func_binary_all!(
@@ -30,6 +32,7 @@ impl_non_round_func_binary_all!(
     round_ties_even_sub => round_sub,
     round_ties_even_mul => round_mul,
     round_ties_even_div => round_div,
+    round_ties_even_mul_add => round_mul_add,
 );
 
 impl_non_round_func_binary_all!(
@@ -38,6 +41,7 @@ impl_non_round_func_binary_all!(
     ciel_sub => round_sub,
     ciel_mul => round_mul,
     ciel_div => round_div,
+    ciel_mul_add => round_mul_add,
 );
 
 impl_non_round_func_binary_all!(
@@ -46,6 +50,7 @@ impl_non_round_func_binary_all!(
     floor_sub => round_sub,
     floor_mul => round_mul,
     floor_div => round_div,
+    floor_mul_add => round_mul_add,
 );
 
 impl_non_round_func_binary_all!(
@@ -54,6 +59,7 @@ impl_non_round_func_binary_all!(
     trunc_sub => round_sub,
     trunc_mul => round_mul,
     trunc_div => round_div,
+    trunc_mul_add => round_mul_add,
 );
 
 impl_func_unary!(
@@ -109,6 +115,7 @@ impl RoundingArithmetic for f32 {
     impl_round_binary!(round_sub);
     impl_round_binary!(round_mul);
     impl_round_binary!(round_div);
+    impl_round_trialy!(round_mul_add);
 }
 
 impl RoundingMath for f32 {
@@ -127,6 +134,7 @@ impl RoundTiesEvenArithmetic for f32 {
     impl_non_round_binary!(round_ties_even_sub);
     impl_non_round_binary!(round_ties_even_mul);
     impl_non_round_binary!(round_ties_even_div);
+    impl_non_round_trialy!(round_ties_even_mul_add);
 }
 
 impl RoundTiesEvenMath for f32 {
@@ -145,6 +153,7 @@ impl CielArithmetic for f32 {
     impl_non_round_binary!(ciel_sub);
     impl_non_round_binary!(ciel_mul);
     impl_non_round_binary!(ciel_div);
+    impl_non_round_trialy!(ciel_mul_add);
 }
 
 impl CielMath for f32 {
@@ -163,6 +172,7 @@ impl FloorArithmetic for f32 {
     impl_non_round_binary!(floor_sub);
     impl_non_round_binary!(floor_mul);
     impl_non_round_binary!(floor_div);
+    impl_non_round_trialy!(floor_mul_add);
 }
 
 impl FloorMath for f32 {
@@ -181,6 +191,7 @@ impl TruncArithmetic for f32 {
     impl_non_round_binary!(trunc_sub);
     impl_non_round_binary!(trunc_mul);
     impl_non_round_binary!(trunc_div);
+    impl_non_round_trialy!(trunc_mul_add);
 }
 
 impl TruncMath for f32 {

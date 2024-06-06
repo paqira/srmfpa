@@ -134,6 +134,12 @@ pub trait RoundingArithmetic<T = Self>: sealed::Sealed {
     ///
     /// Panics when fail to set/rest rounding mode.
     fn round_div(self, other: T, mode: &RoundMode) -> Self::Output;
+    /// Returns fma (`self * a + b` with single rounding) with specified rounding mode.
+    ///
+    /// # Safety
+    ///
+    /// Panics when fail to set/rest rounding mode.
+    fn round_mul_add(self, a: T, b: T, mode: &RoundMode) -> Self::Output;
 }
 
 /// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding to nearest, ties to even.
@@ -165,6 +171,12 @@ pub trait RoundTiesEvenArithmetic<T = Self>: sealed::Sealed {
     ///
     /// Panics when fail to set/rest rounding mode.
     fn round_ties_even_div(self, other: T) -> Self::Output;
+    /// Returns fma (`self * a + b` with single rounding) as rounding to nearest, ties to even.
+    ///
+    /// # Safety
+    ///
+    /// Panics when fail to set/rest rounding mode.
+    fn round_ties_even_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
 /// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding toward +∞.
@@ -196,6 +208,12 @@ pub trait CielArithmetic<T = Self>: sealed::Sealed {
     ///
     /// Panics when fail to set/rest rounding mode.
     fn ciel_div(self, other: T) -> Self::Output;
+    /// Returns fma (`self * a + b` with single rounding) as rounding toward +∞.
+    ///
+    /// # Safety
+    ///
+    /// Panics when fail to set/rest rounding mode.
+    fn ciel_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
 /// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding toward -∞.
@@ -228,6 +246,12 @@ pub trait FloorArithmetic<T = Self>: sealed::Sealed {
     ///
     /// Panics when fail to set/rest rounding mode.
     fn floor_div(self, other: T) -> Self::Output;
+    /// Returns fma (`self * a + b` with single rounding) as rounding toward -∞.
+    ///
+    /// # Safety
+    ///
+    /// Panics when fail to set/rest rounding mode.
+    fn floor_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
 /// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding toward 0.
@@ -259,6 +283,12 @@ pub trait TruncArithmetic<T = Self>: sealed::Sealed {
     ///
     /// Panics when fail to set/rest rounding mode.
     fn trunc_div(self, other: T) -> Self::Output;
+    /// Returns fma (`self * a + b` with single rounding) as rounding toward 0.
+    ///
+    /// # Safety
+    ///
+    /// Panics when fail to set/rest rounding mode.
+    fn trunc_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
 /// Provides a math function (`sqrt`) with specified rounding mode.
