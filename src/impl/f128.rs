@@ -82,7 +82,7 @@ mod arithmetic {
         impl_round_binary!(round_sub);
         impl_round_binary!(round_mul);
         impl_round_binary!(round_div);
-        impl_round_trialy!(round_mul_add);
+        impl_round_ternary!(round_mul_add);
     }
 
     impl RoundTiesEvenArithmetic for f128 {
@@ -92,7 +92,7 @@ mod arithmetic {
         impl_non_round_binary!(round_ties_even_sub);
         impl_non_round_binary!(round_ties_even_mul);
         impl_non_round_binary!(round_ties_even_div);
-        impl_non_round_trialy!(round_ties_even_mul_add);
+        impl_non_round_ternary!(round_ties_even_mul_add);
     }
 
     impl CielArithmetic for f128 {
@@ -102,7 +102,7 @@ mod arithmetic {
         impl_non_round_binary!(ciel_sub);
         impl_non_round_binary!(ciel_mul);
         impl_non_round_binary!(ciel_div);
-        impl_non_round_trialy!(ciel_mul_add);
+        impl_non_round_ternary!(ciel_mul_add);
     }
 
     impl FloorArithmetic for f128 {
@@ -112,7 +112,7 @@ mod arithmetic {
         impl_non_round_binary!(floor_sub);
         impl_non_round_binary!(floor_mul);
         impl_non_round_binary!(floor_div);
-        impl_non_round_trialy!(floor_mul_add);
+        impl_non_round_ternary!(floor_mul_add);
     }
 
     impl TruncArithmetic for f128 {
@@ -122,7 +122,7 @@ mod arithmetic {
         impl_non_round_binary!(trunc_sub);
         impl_non_round_binary!(trunc_mul);
         impl_non_round_binary!(trunc_div);
-        impl_non_round_trialy!(trunc_mul_add);
+        impl_non_round_ternary!(trunc_mul_add);
     }
 }
 

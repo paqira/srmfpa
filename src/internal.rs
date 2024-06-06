@@ -122,7 +122,7 @@ macro_rules! impl_round_binary {
         }
     };
 }
-macro_rules! impl_round_trialy {
+macro_rules! impl_round_ternary {
     ($name:ident) => {
         #[inline]
         fn $name(self, a: Self, b: Self, mode: &RoundingMode) -> Self::Output {
@@ -140,7 +140,7 @@ macro_rules! impl_non_round_binary {
     };
 }
 
-macro_rules! impl_non_round_trialy {
+macro_rules! impl_non_round_ternary {
     ($name:ident) => {
         #[inline]
         fn $name(self, a: Self, b: Self) -> Self::Output {
@@ -153,7 +153,7 @@ pub(crate) use impl_func_binary;
 pub(crate) use impl_func_unary;
 pub(crate) use impl_non_round_binary;
 pub(crate) use impl_non_round_func_binary_all;
-pub(crate) use impl_non_round_trialy;
+pub(crate) use impl_non_round_ternary;
 pub(crate) use impl_round_binary;
 pub(crate) use impl_round_func_binary_all;
-pub(crate) use impl_round_trialy;
+pub(crate) use impl_round_ternary;
