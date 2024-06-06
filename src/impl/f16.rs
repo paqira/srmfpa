@@ -16,8 +16,9 @@ use crate::{RoundingArithmetic, RoundingMath};
 mod arithmetic {
     use std::ffi::c_int;
 
-    use super::*;
     use crate::internal::*;
+
+    use super::*;
 
     extern "C" {
         fn c_add_f16(mode: c_int, a: f16, b: f16, dst: *mut f16) -> c_int;
@@ -127,8 +128,9 @@ mod arithmetic {
 mod math {
     use std::ffi::c_int;
 
-    use super::*;
     use crate::internal::*;
+
+    use super::*;
 
     extern "C" {
         fn c_sqrt_f16(mode: c_int, a: f16, dst: *mut f16) -> c_int;
