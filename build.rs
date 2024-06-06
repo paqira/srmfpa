@@ -2,7 +2,7 @@ fn main() {
     let mut builder = cc::Build::new();
 
     builder
-        .file("src/c/common.c")
+        .file("src/c/rounding_mode.c")
         .file("src/c/f32.c")
         .file("src/c/f64.c");
 
