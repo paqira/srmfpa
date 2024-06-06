@@ -83,7 +83,6 @@ pub enum RoundingMode {
     TowardPosInf,
     /// Toward -∞ (floor, `DOWNWARD` in C).
     TowardNegInf,
-
 }
 
 impl RoundingMode {
