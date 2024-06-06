@@ -31,7 +31,7 @@ jobs:
   vanilla:
     runs-on: ubuntu-latest
     env:
-      CFLAGS: -frounding-math -std=c23
+      CFLAGS: -frounding-math -std=c11
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -C target-feature=+fma
-      CFLAGS: -frounding-math -std=c23 -mfma
+      CFLAGS: -frounding-math -std=c11 -mfma
     steps:
       - name: Checkout
         uses: actions/checkout@v4
