@@ -1,6 +1,8 @@
 #![allow(unused_imports)]
 
 //! Functions for [`f128`].
+//!
+//! Notes, they panic when fails to set/reset rounding mode.
 
 #[cfg(feature = "f128-arithmetics")]
 pub use arithmetic::*;

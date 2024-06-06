@@ -1,4 +1,6 @@
 //! Functions for [`f64`].
+//!
+//! Notes, they panic when fails to set/reset rounding mode.
 
 use std::ffi::c_int;
 

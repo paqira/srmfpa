@@ -11,7 +11,7 @@ macro_rules! impl_func_unary {
             let mut dst: $ty = Default::default();
             match unsafe { $c_name(mode.as_c_int(), a, &mut dst) } {
                 0 => dst,
-                _ => panic!("fail to set/rest rounding mode"),
+                _ => panic!("fail to set/restore rounding mode"),
             }
         }
     };
@@ -30,7 +30,7 @@ macro_rules! impl_func_binary {
             let mut dst: $ty = Default::default();
             match unsafe { $c_name(mode.as_c_int(), a, b, &mut dst) } {
                 0 => dst,
-                _ => panic!("fail to set/rest rounding mode"),
+                _ => panic!("fail to set/restore rounding mode"),
             }
         }
     };
@@ -46,32 +46,32 @@ macro_rules! impl_round_func_binary_all {
         $fma:ident => $fma_fn:ident,
     ) => {
         impl_func_binary!(
-            #[doc = concat!("Returns `a + b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a + b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $add, $add_fn
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a - b` as specific rounding mode..\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a - b` as specific rounding mode..\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $sub, $sub_fn
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a * b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a * b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $mul, $mul_fn
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a / b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a / b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $div, $div_fn
         );
-        #[doc = concat!("Returns fma (`a * b + c` with single rounding) as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+        #[doc = concat!("Returns `a * b + c` with single rounding (fused multiply-add) as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty, mode: &RoundMode) -> $ty {
             let mut dst: $ty = Default::default();
             match unsafe { $fma_fn(mode.as_c_int(), a, b, c, &mut dst) } {
                 0 => dst,
-                _ => panic!("fail to set/rest rounding mode"),
+                _ => panic!("fail to set/restore rounding mode"),
             }
         }
     }
@@ -87,26 +87,26 @@ macro_rules! impl_non_round_func_binary_all {
         $fma:ident => $fma_fn:ident,
     ) => {
         impl_func_binary!(
-            #[doc = concat!("Returns `a + b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a + b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $add, $add_fn, $mode
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a - b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a - b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $sub, $sub_fn, $mode
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a * b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a * b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $mul, $mul_fn, $mode
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a / b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+            #[doc = concat!("Returns `a / b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
             #[inline]
             => $ty, $div, $div_fn, $mode
         );
-        #[doc = concat!("Returns (`a * b + c` with single rounding) as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/rest rounding mode.")]
+        #[doc = concat!("Returns `a * b + c` with single rounding (fused multiply-add) as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty) -> $ty {
             $fma_fn(a, b, c, &RoundMode::$mode)

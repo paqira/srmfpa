@@ -5,12 +5,12 @@
 )]
 #![cfg_attr(test, feature(float_next_up_down))]
 
-//! Rounding-mode-aware floating point number arithmetics (`+`, `-`, `*` and `/`) and `sqrt`.
+//! Floating point arithmetics (`+`, `-`, `*` and `/`) and `sqrt` with specified rounding mode.
 //!
 //! ```
 //! use fpa_specr::prelude::*;
 //!
-//! // Support add, sub, mul, div and sqrt
+//! // Support add, sub, mul, div, mul_add (fma) and sqrt
 //!
 //! assert_eq!(0.1f64.round_ties_even_add(0.2), 0.30000000000000004);
 //! assert_eq!(0.1f64.ciel_add(0.2), 0.30000000000000004);
@@ -24,19 +24,23 @@
 //!
 //! // Generic ops
 //! assert_eq!(0.1.round_add(0.2, &RoundMode::NearestTiesEven), 0.30000000000000004);
-//!
-//! // Functions are available,
-//! // it does not pollute name space.
+//! // Functions are available
 //! use fpa_specr::f64::{ciel_add, floor_add};
 //! assert_eq!(ciel_add(0.1, 0.2), 0.30000000000000004);
 //! assert_eq!(floor_add(0.1, 0.2), 0.3);
 //! ```
 //!
-//! Notes, each implementations panic when
-//! fails to set/reset rounding mode,
-//! because, in general, propagation of changing rounding mode may case UB (see [discussion]).
+//! # Notes on Correctness and Configuration
 //!
-//! [discussion]: https://github.com/rust-lang/rfcs/pull/3514
+//! Correctness depends on using C compiler and libc,
+//! because apis of [`fpa_specr`][mod@self] call floating point ops implemented in C with `<fenv.h>`.
+//!
+//! [`fpa_specr`][mod@self] does not explicitly specify C compiler options.
+//! It may require to explicitly pass option (`-frounding-math`, `-std=c23`, `-mfma` etc.)
+//! to obtain the desired result.
+//! See [`cc` crate document][cc_doc] for detail of configuration.
+//!
+//! [cc_doc]: https://docs.rs/cc/latest/cc/index.html
 
 use core::ffi::c_int;
 
@@ -115,31 +119,31 @@ pub trait RoundingArithmetic<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_add(self, other: T, mode: &RoundMode) -> Self::Output;
     /// Returns `self - other` with specified rounding mode.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_sub(self, other: T, mode: &RoundMode) -> Self::Output;
     /// Returns `self * other` with specified rounding mode.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_mul(self, other: T, mode: &RoundMode) -> Self::Output;
     /// Returns `self / other` with specified rounding mode.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_div(self, other: T, mode: &RoundMode) -> Self::Output;
-    /// Returns fma (`self * a + b` with single rounding) with specified rounding mode.
+    /// Returns `self * a + b` with single rounding (fused multiply-add) with specified rounding mode.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_mul_add(self, a: T, b: T, mode: &RoundMode) -> Self::Output;
 }
 
@@ -152,31 +156,31 @@ pub trait RoundTiesEvenArithmetic<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_ties_even_add(self, other: T) -> Self::Output;
     /// Returns `self - other` as rounding to nearest, ties to even.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_ties_even_sub(self, other: T) -> Self::Output;
     /// Returns `self * other` as rounding to nearest, ties to even.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_ties_even_mul(self, other: T) -> Self::Output;
     /// Returns `self / other` as rounding to nearest, ties to even.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_ties_even_div(self, other: T) -> Self::Output;
-    /// Returns fma (`self * a + b` with single rounding) as rounding to nearest, ties to even.
+    /// Returns `self * a + b` with single rounding (fused multiply-add) as rounding to nearest, ties to even.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_ties_even_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
@@ -189,31 +193,31 @@ pub trait CielArithmetic<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn ciel_add(self, other: T) -> Self::Output;
     /// Returns `self - other` as rounding toward +∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn ciel_sub(self, other: T) -> Self::Output;
     /// Returns `self * other` as rounding toward +∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn ciel_mul(self, other: T) -> Self::Output;
     /// Returns `self / other` as rounding toward +∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn ciel_div(self, other: T) -> Self::Output;
-    /// Returns fma (`self * a + b` with single rounding) as rounding toward +∞.
+    /// Returns `self * a + b` with single rounding (fused multiply-add) as rounding toward +∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn ciel_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
@@ -226,32 +230,32 @@ pub trait FloorArithmetic<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn floor_add(self, other: T) -> Self::Output;
     /// Returns `self - other` as rounding toward -∞.
     ///
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn floor_sub(self, other: T) -> Self::Output;
     /// Returns `self * other` as rounding toward -∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn floor_mul(self, other: T) -> Self::Output;
     /// Returns `self / other` as rounding toward -∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn floor_div(self, other: T) -> Self::Output;
-    /// Returns fma (`self * a + b` with single rounding) as rounding toward -∞.
+    /// Returns `self * a + b` with single rounding (fused multiply-add) as rounding toward -∞.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn floor_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
@@ -264,31 +268,31 @@ pub trait TruncArithmetic<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn trunc_add(self, other: T) -> Self::Output;
     /// Returns `self - other` as rounding toward 0.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn trunc_sub(self, other: T) -> Self::Output;
     /// Returns `self * other` as rounding toward 0.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn trunc_mul(self, other: T) -> Self::Output;
     /// Returns `self / other` as rounding toward 0.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn trunc_div(self, other: T) -> Self::Output;
-    /// Returns fma (`self * a + b` with single rounding) as rounding toward 0.
+    /// Returns `self * a + b` with single rounding (fused multiply-add) as rounding toward 0.
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn trunc_mul_add(self, a: T, b: T) -> Self::Output;
 }
 
@@ -301,7 +305,7 @@ pub trait RoundingMath<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_sqrt(self, mode: &RoundMode) -> Self::Output;
 }
 
@@ -314,7 +318,7 @@ pub trait RoundTiesEvenMath<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn round_ties_even_sqrt(self) -> Self::Output;
 }
 
@@ -327,7 +331,7 @@ pub trait CielMath<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn ciel_sqrt(self) -> Self::Output;
 }
 
@@ -340,7 +344,7 @@ pub trait FloorMath<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn floor_sqrt(self) -> Self::Output;
 }
 
@@ -353,6 +357,6 @@ pub trait TruncMath<T = Self>: sealed::Sealed {
     ///
     /// # Safety
     ///
-    /// Panics when fail to set/rest rounding mode.
+    /// Panics when fail to set/restore rounding mode.
     fn trunc_sqrt(self) -> Self::Output;
 }
