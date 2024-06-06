@@ -142,7 +142,7 @@ impl RoundTiesEvenMath for f32 {
 
     #[inline]
     fn round_ties_even_sqrt(self) -> Self::Output {
-        round_sqrt(self, &RoundMode::NearestTiesEven)
+        round_ties_even_sqrt(self)
     }
 }
 
@@ -161,7 +161,7 @@ impl CielMath for f32 {
 
     #[inline]
     fn ciel_sqrt(self) -> Self::Output {
-        round_sqrt(self, &RoundMode::TowardPosInf)
+        ciel_sqrt(self)
     }
 }
 
@@ -180,7 +180,7 @@ impl FloorMath for f32 {
 
     #[inline]
     fn floor_sqrt(self) -> Self::Output {
-        round_sqrt(self, &RoundMode::TowardNegInf)
+        floor_sqrt(self)
     }
 }
 
@@ -199,7 +199,7 @@ impl TruncMath for f32 {
 
     #[inline]
     fn trunc_sqrt(self) -> Self::Output {
-        round_sqrt(self, &RoundMode::TowardZero)
+        trunc_sqrt(self)
     }
 }
 
