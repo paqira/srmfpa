@@ -19,7 +19,7 @@ assert_eq!((-0.1).floor_add(-0.2), -0.30000000000000004);
 assert_eq!((-0.1).trunc_add(-0.2), -0.3);
 
 // Generic ops
-assert_eq!(0.1.round_add(0.2, &RoundMode::NearestTiesEven), 0.30000000000000004);
+assert_eq!(0.1.round_add(0.2, &RoundingMode::NearestTiesEven), 0.30000000000000004);
 
 // Functions are available
 use fpa_specr::f64::{ciel_add, floor_add};

@@ -36,7 +36,8 @@
 //! Correctness depends on using C compiler and libc,
 //! because APIs of [`fpa_specr`][mod@self] call floating point ops implemented in C with `<fenv.h>`.
 //!
-//! [`fpa_specr`][mod@self] does not _explicitly_ specify any C compiler options.
+//! [`fpa_specr`][mod@self] uses the default C compiler options of `cc`,
+//! and does not (explicitly) specify other options.
 //! It is recommended to pass corresponding options (`-frounding-math`, `-std=c23`, `-mfma` etc.)
 //! to obtain the desired result.
 //! See [`cc` crate document][cc_doc] for detail of configuration.
