@@ -2,7 +2,6 @@ fn main() {
     let mut builder = cc::Build::new();
 
     builder
-        .std("c11") // require c11 as default
         .file("src/c/common.c")
         .file("src/c/f32.c")
         .file("src/c/f64.c");
