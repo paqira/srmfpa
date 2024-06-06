@@ -3,6 +3,7 @@
     any(feature = "f128-arithmetics", feature = "f128-math"),
     feature(f128)
 )]
+#![cfg_attr(test, feature(float_next_up_down))]
 
 //! Rounding-mode-aware floating point number arithmetics (`+`, `-`, `*` and `/`) and `sqrt`.
 //!
