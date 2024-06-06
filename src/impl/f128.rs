@@ -9,7 +9,7 @@ pub use arithmetic::*;
 #[cfg(feature = "f128-math")]
 pub use math::*;
 
-use crate::RoundMode;
+use crate::RoundingMode;
 use crate::{CielArithmetic, FloorArithmetic, RoundTiesEvenArithmetic, TruncArithmetic};
 use crate::{CielMath, FloorMath, RoundTiesEvenMath, TruncMath};
 use crate::{RoundingArithmetic, RoundingMath};

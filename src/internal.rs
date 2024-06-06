@@ -2,12 +2,12 @@ macro_rules! impl_func_unary {
     ($(#[$attr:meta])* => $ty:ty, $name:ident, $gen_name:ident, $var:ident) => {
         $(#[$attr])*
         pub fn $name(a: $ty) -> $ty {
-            $gen_name(a, &RoundMode::$var)
+            $gen_name(a, &RoundingMode::$var)
         }
     };
     ($(#[$attr:meta])* => $ty:ty, $name:ident, $c_name:ident) => {
         $(#[$attr])*
-        pub fn $name(a: $ty, mode: &RoundMode) -> $ty {
+        pub fn $name(a: $ty, mode: &RoundingMode) -> $ty {
             let mut dst: $ty = Default::default();
             match unsafe { $c_name(mode.as_c_int(), a, &mut dst) } {
                 0 => dst,
@@ -21,12 +21,12 @@ macro_rules! impl_func_binary {
     ($(#[$attr:meta])* => $ty:ty, $name:ident , $generic_name:ident, $var:ident) => {
         $(#[$attr])*
         pub fn $name(a: $ty, b: $ty) -> $ty {
-            $generic_name(a, b, &RoundMode::$var)
+            $generic_name(a, b, &RoundingMode::$var)
         }
     };
     ($(#[$attr:meta])* => $ty:ty, $name:ident, $c_name:ident) => {
         $(#[$attr])*
-        pub fn $name(a: $ty, b: $ty, mode: &RoundMode) -> $ty {
+        pub fn $name(a: $ty, b: $ty, mode: &RoundingMode) -> $ty {
             let mut dst: $ty = Default::default();
             match unsafe { $c_name(mode.as_c_int(), a, b, &mut dst) } {
                 0 => dst,
@@ -67,7 +67,7 @@ macro_rules! impl_round_func_binary_all {
         );
         #[doc = concat!("Returns `a * b + c` with single rounding (fused multiply-add) as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
         #[inline]
-        pub fn $fma(a: $ty, b: $ty, c: $ty, mode: &RoundMode) -> $ty {
+        pub fn $fma(a: $ty, b: $ty, c: $ty, mode: &RoundingMode) -> $ty {
             let mut dst: $ty = Default::default();
             match unsafe { $fma_fn(mode.as_c_int(), a, b, c, &mut dst) } {
                 0 => dst,
@@ -109,7 +109,7 @@ macro_rules! impl_non_round_func_binary_all {
         #[doc = concat!("Returns `a * b + c` with single rounding (fused multiply-add) as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty) -> $ty {
-            $fma_fn(a, b, c, &RoundMode::$mode)
+            $fma_fn(a, b, c, &RoundingMode::$mode)
         }
     }
 }
@@ -117,7 +117,7 @@ macro_rules! impl_non_round_func_binary_all {
 macro_rules! impl_round_binary {
     ($name:ident) => {
         #[inline]
-        fn $name(self, other: Self, mode: &RoundMode) -> Self::Output {
+        fn $name(self, other: Self, mode: &RoundingMode) -> Self::Output {
             $name(self, other, mode)
         }
     };
@@ -125,7 +125,7 @@ macro_rules! impl_round_binary {
 macro_rules! impl_round_trialy {
     ($name:ident) => {
         #[inline]
-        fn $name(self, a: Self, b: Self, mode: &RoundMode) -> Self::Output {
+        fn $name(self, a: Self, b: Self, mode: &RoundingMode) -> Self::Output {
             $name(self, a, b, mode)
         }
     };

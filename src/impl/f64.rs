@@ -5,7 +5,7 @@
 use std::ffi::c_int;
 
 use crate::internal::*;
-use crate::RoundMode;
+use crate::RoundingMode;
 use crate::{CielArithmetic, FloorArithmetic, RoundTiesEvenArithmetic, TruncArithmetic};
 use crate::{CielMath, FloorMath, RoundTiesEvenMath, TruncMath};
 use crate::{RoundingArithmetic, RoundingMath};
@@ -124,7 +124,7 @@ impl RoundingMath for f64 {
     type Output = Self;
 
     #[inline]
-    fn round_sqrt(self, mode: &RoundMode) -> Self::Output {
+    fn round_sqrt(self, mode: &RoundingMode) -> Self::Output {
         round_sqrt(self, mode)
     }
 }
@@ -208,7 +208,7 @@ impl TruncMath for f64 {
 /// accrual test
 #[cfg(test)]
 mod test_fn_arith {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -300,7 +300,7 @@ mod test_fn_arith {
 
 #[cfg(test)]
 mod test_fn_arith_mono {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -431,7 +431,7 @@ mod test_fn_arith_mono {
 /// accrual test
 #[cfg(test)]
 mod test_fn_math {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -460,7 +460,7 @@ mod test_fn_math {
 
 #[cfg(test)]
 mod test_fn_math_mono {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -479,7 +479,7 @@ mod test_fn_math_mono {
 
 #[cfg(test)]
 mod test_trait_arith {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -681,7 +681,7 @@ mod test_trait_arith {
 
 #[cfg(test)]
 mod test_trait_arith_mono {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -811,7 +811,7 @@ mod test_trait_arith_mono {
 
 #[cfg(test)]
 mod test_trait_math {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 
@@ -851,7 +851,7 @@ mod test_trait_math {
 
 #[cfg(test)]
 mod test_trait_math_mono {
-    use crate::RoundMode as Mode;
+    use crate::RoundingMode as Mode;
 
     use super::*;
 

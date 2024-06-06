@@ -23,7 +23,7 @@
 //! assert_eq!((-0.1f64).trunc_add(-0.2), -0.3);
 //!
 //! // Generic ops
-//! assert_eq!(0.1.round_add(0.2, &RoundMode::NearestTiesEven), 0.30000000000000004);
+//! assert_eq!(0.1.round_add(0.2, &RoundingMode::NearestTiesEven), 0.30000000000000004);
 //!
 //! // Functions are available
 //! use fpa_specr::f64::{ciel_add, floor_add};
@@ -58,7 +58,7 @@ pub use r#impl::f64;
 /// rma_arith’s prelude.
 pub mod prelude {
     // provides RoundingMode and traits only.
-    pub use crate::RoundMode;
+    pub use crate::RoundingMode;
     pub use crate::{CielArithmetic, FloorArithmetic, RoundTiesEvenArithmetic, TruncArithmetic};
     pub use crate::{CielMath, FloorMath, RoundTiesEvenMath, TruncMath};
     pub use crate::{RoundingArithmetic, RoundingMath};
@@ -73,7 +73,7 @@ extern "C" {
 
 /// Rounding mode
 #[derive(Debug, Copy, Clone)]
-pub enum RoundMode {
+pub enum RoundingMode {
     /// To nearest, ties to even (`TONEAREST` in C).
     NearestTiesEven,
     /// Toward 0 (trunc; `TOWARDZERO` in C).
@@ -84,7 +84,7 @@ pub enum RoundMode {
     TowardNegInf,
 }
 
-impl RoundMode {
+impl RoundingMode {
     pub(crate) fn as_c_int(&self) -> c_int {
         match self {
             Self::NearestTiesEven => unsafe { c_TO_NEAREST },
@@ -121,31 +121,31 @@ pub trait RoundingArithmetic<T = Self>: sealed::Sealed {
     /// # Safety
     ///
     /// Panics when fail to set/restore rounding mode.
-    fn round_add(self, other: T, mode: &RoundMode) -> Self::Output;
+    fn round_add(self, other: T, mode: &RoundingMode) -> Self::Output;
     /// Returns `self - other` with specified rounding mode.
     ///
     /// # Safety
     ///
     /// Panics when fail to set/restore rounding mode.
-    fn round_sub(self, other: T, mode: &RoundMode) -> Self::Output;
+    fn round_sub(self, other: T, mode: &RoundingMode) -> Self::Output;
     /// Returns `self * other` with specified rounding mode.
     ///
     /// # Safety
     ///
     /// Panics when fail to set/restore rounding mode.
-    fn round_mul(self, other: T, mode: &RoundMode) -> Self::Output;
+    fn round_mul(self, other: T, mode: &RoundingMode) -> Self::Output;
     /// Returns `self / other` with specified rounding mode.
     ///
     /// # Safety
     ///
     /// Panics when fail to set/restore rounding mode.
-    fn round_div(self, other: T, mode: &RoundMode) -> Self::Output;
+    fn round_div(self, other: T, mode: &RoundingMode) -> Self::Output;
     /// Returns `self * a + b` with single rounding (fused multiply-add) with specified rounding mode.
     ///
     /// # Safety
     ///
     /// Panics when fail to set/restore rounding mode.
-    fn round_mul_add(self, a: T, b: T, mode: &RoundMode) -> Self::Output;
+    fn round_mul_add(self, a: T, b: T, mode: &RoundingMode) -> Self::Output;
 }
 
 /// Provides arithmetics (`+`, `-`, `*` and `/`) as rounding to nearest, ties to even.
@@ -307,7 +307,7 @@ pub trait RoundingMath<T = Self>: sealed::Sealed {
     /// # Safety
     ///
     /// Panics when fail to set/restore rounding mode.
-    fn round_sqrt(self, mode: &RoundMode) -> Self::Output;
+    fn round_sqrt(self, mode: &RoundingMode) -> Self::Output;
 }
 
 /// Provides a math function (`sqrt`) as rounding to nearest, ties to even.
