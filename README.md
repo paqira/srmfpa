@@ -1,7 +1,7 @@
 # fpa-specr
 
-Floating point arithmetics (add, sub, mul, div and mul_add) and `sqrt`
-with specified rounding mode.
+Four floating-point arithmetic operations (including fused multiply-add) and square root,
+in specified rounding mode.
 
 ```rust
 use fpa_specr::prelude::*;
