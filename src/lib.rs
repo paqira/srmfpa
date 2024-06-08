@@ -56,13 +56,16 @@ pub use r#impl::f16;
 pub use r#impl::f32;
 pub use r#impl::f64;
 
+mod r#impl;
+mod internal;
+
 /// rma_arith’s prelude.
 pub mod prelude {
-    // provides RoundingMode and traits only.
-    pub use crate::RoundingMode;
     pub use crate::{CielArithmetic, FloorArithmetic, RoundTiesEvenArithmetic, TruncArithmetic};
     pub use crate::{CielMath, FloorMath, RoundTiesEvenMath, TruncMath};
     pub use crate::{RoundingArithmetic, RoundingMath};
+    // provides RoundingMode and traits only.
+    pub use crate::RoundingMode;
 }
 
 extern "C" {
@@ -89,9 +92,9 @@ impl RoundingMode {
     pub(crate) fn as_c_int(&self) -> c_int {
         match self {
             Self::NearestTiesEven => unsafe { c_TO_NEAREST },
-            Self::TowardZero => unsafe { c_TOWARD_ZERO },
             Self::TowardPosInf => unsafe { c_UPWARD },
             Self::TowardNegInf => unsafe { c_DOWNWARD },
+            Self::TowardZero => unsafe { c_TOWARD_ZERO },
         }
     }
 

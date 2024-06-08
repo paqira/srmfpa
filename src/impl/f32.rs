@@ -300,6 +300,7 @@ mod test_fn_arith {
         assert_eq!(round_mul_add(a, b, c, &Mode::TowardZero), e);
     }
 }
+
 #[cfg(test)]
 mod test_fn_arith_mono {
     use crate::RoundingMode as Mode;
