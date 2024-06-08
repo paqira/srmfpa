@@ -47,9 +47,6 @@
 
 use core::ffi::c_int;
 
-mod r#impl;
-mod internal;
-
 #[cfg(any(feature = "f128-arithmetics", feature = "f128-math"))]
 pub use r#impl::f128;
 #[cfg(any(feature = "f16-arithmetics", feature = "f16-math"))]
