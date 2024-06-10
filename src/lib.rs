@@ -71,6 +71,8 @@ extern "C" {
     static c_UPWARD: c_int;
     static c_DOWNWARD: c_int;
     static c_TOWARD_ZERO: c_int;
+
+    fn c_supported(round: c_int) -> bool;
 }
 
 /// Rounding mode
@@ -97,8 +99,13 @@ impl RoundingMode {
     }
 
     /// Returns `true` if the mode is supported.
+    ///
+    /// # Implementation notes
+    ///
+    /// This tests the corresponding C macro's value is greater than or equals to 0,
+    /// e.g., `0 <= TONEAREST`.
     pub fn supported(&self) -> bool {
-        0 <= self.as_c_int()
+        unsafe { c_supported(self.as_c_int()) }
     }
 }
 
