@@ -31,7 +31,7 @@ jobs:
   vanilla:
     runs-on: ubuntu-latest
     env:
-      CFLAGS: -frounding-math -std=c11
+      CFLAGS: -std=c11 -frounding-math
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,12 +40,12 @@ jobs:
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
       - name: Test
-        run: cargo +nightly test
+        run: cargo +nightly test --release
   fma:
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -C target-feature=+fma
-      CFLAGS: -frounding-math -std=c11 -mfma
+      CFLAGS: -std=c11 -frounding-math -mfma
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,4 +54,4 @@ jobs:
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
       - name: Test
-        run: cargo +nightly test
+        run: cargo +nightly test --release
