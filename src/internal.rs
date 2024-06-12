@@ -1,3 +1,5 @@
+#![allow(unused_macros, unused_imports)]
+
 macro_rules! impl_func_unary {
     ($(#[$attr:meta])* => $ty:ty, $name:ident, $gen_name:ident, $var:ident) => {
         $(#[$attr])*
@@ -46,26 +48,56 @@ macro_rules! impl_round_func_binary_all {
         $fma:ident => $fma_fn:ident,
     ) => {
         impl_func_binary!(
-            #[doc = concat!("Returns `a + b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a + b` as specific rounding mode.
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $add, $add_fn
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a - b` as specific rounding mode..\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a - b` as specific rounding mode.
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $sub, $sub_fn
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a * b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a * b` as specific rounding mode.
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $mul, $mul_fn
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a / b` as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a / b` as specific rounding mode.
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $div, $div_fn
         );
-        #[doc = concat!("Returns `a * b + c` with single rounding (fused multiply-add) as specific rounding mode.\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+        #[doc = concat!(
+"Returns `a * b + c` with single rounding (fused multiply-add) as specific rounding mode.
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+        )]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty, mode: &RoundingMode) -> $ty {
             let mut dst: $ty = Default::default();
@@ -87,26 +119,56 @@ macro_rules! impl_non_round_func_binary_all {
         $fma:ident => $fma_fn:ident,
     ) => {
         impl_func_binary!(
-            #[doc = concat!("Returns `a + b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a + b` as ", $mode_txt, ".
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $add, $add_fn, $mode
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a - b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a - b` as ", $mode_txt, ".
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $sub, $sub_fn, $mode
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a * b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a * b` as ", $mode_txt, ".
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $mul, $mul_fn, $mode
         );
         impl_func_binary!(
-            #[doc = concat!("Returns `a / b` as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+            #[doc = concat!(
+"Returns `a / b` as ", $mode_txt, ".
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+            )]
             #[inline]
             => $ty, $div, $div_fn, $mode
         );
-        #[doc = concat!("Returns `a * b + c` with single rounding (fused multiply-add) as ", $mode_txt, ".\n\n# Safety\n\nPanics when fail to set/restore rounding mode.")]
+        #[doc = concat!(
+"Returns `a * b + c` with single rounding (fused multiply-add) as ", $mode_txt, ".
+
+# Safety
+
+Panics when fail to set/restore rounding mode."
+        )]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty) -> $ty {
             $fma_fn(a, b, c, &RoundingMode::$mode)

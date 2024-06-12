@@ -12,11 +12,22 @@ readme = "README.md"
 exclude = [".*"]
 categories = ["mathematics", "science"]
 
+[dependencies]
+fpa-specr-berkeley-softfloat = { path = "fpa-specr-berkeley-softfloat", version = "*", optional = true }
+
 [build-dependencies]
 cc = { version = "1" }
 
 [features]
-f16-arithmetics = []
-f16-math = []
-f128-arithmetics = []
-f128-math = []
+f16 = []
+f128 = []
+softfloat = ["f16-softfloat", "f32-softfloat", "f64-softfloat", "f128-softfloat"]
+f16-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
+f32-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
+f64-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
+f128-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
+
+[workspace]
+members = [
+    "fpa-specr-berkeley-softfloat",
+]
