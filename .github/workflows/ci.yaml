@@ -41,7 +41,7 @@ jobs:
         run: cargo fmt --check
       - name: Lint
         run: cargo +nightly clippy
-  hardfloat-f32-f64:
+  C-f32-f64:
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -C target-cpu=native
