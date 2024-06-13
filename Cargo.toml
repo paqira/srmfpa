@@ -21,7 +21,7 @@ cc = { version = "1" }
 [features]
 f16 = []
 f128 = []
-softfloat = ["f16-softfloat", "f32-softfloat", "f64-softfloat", "f128-softfloat"]
+softfloat = ["f32-softfloat", "f64-softfloat"]
 f16-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
 f32-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
 f64-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
