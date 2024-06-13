@@ -55,6 +55,7 @@ impl_func_unary!(
     /// # Safety
     ///
     /// Panics when fail to set/rest rounding mode.
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     => f32, round_ties_even_sqrt, round_sqrt, NearestTiesEven
 );
@@ -64,6 +65,7 @@ impl_func_unary!(
     /// # Safety
     ///
     /// Panics when fail to set/rest rounding mode.
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     => f32, ciel_sqrt, round_sqrt, TowardPosInf
 );
@@ -73,6 +75,7 @@ impl_func_unary!(
     /// # Safety
     ///
     /// Panics when fail to set/rest rounding mode.
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     => f32, floor_sqrt, round_sqrt, TowardNegInf
 );
@@ -82,6 +85,7 @@ impl_func_unary!(
     /// # Safety
     ///
     /// Panics when fail to set/rest rounding mode.
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     => f32, trunc_sqrt, round_sqrt, TowardZero
 );
@@ -99,6 +103,7 @@ impl RoundingArithmetic for f32 {
 impl RoundingMath for f32 {
     type Output = Self;
 
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     fn round_sqrt(self, mode: &RoundingMode) -> Self::Output {
         round_sqrt(self, mode)
@@ -118,6 +123,7 @@ impl RoundTiesEvenArithmetic for f32 {
 impl RoundTiesEvenMath for f32 {
     type Output = Self;
 
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     fn round_ties_even_sqrt(self) -> Self::Output {
         round_ties_even_sqrt(self)
@@ -137,6 +143,7 @@ impl CielArithmetic for f32 {
 impl CielMath for f32 {
     type Output = Self;
 
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     fn ciel_sqrt(self) -> Self::Output {
         ciel_sqrt(self)
@@ -156,6 +163,7 @@ impl FloorArithmetic for f32 {
 impl FloorMath for f32 {
     type Output = Self;
 
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     fn floor_sqrt(self) -> Self::Output {
         floor_sqrt(self)
@@ -175,6 +183,7 @@ impl TruncArithmetic for f32 {
 impl TruncMath for f32 {
     type Output = Self;
 
+    #[must_use = "method returns a new number and does not mutate the original value"]
     #[inline]
     fn trunc_sqrt(self) -> Self::Output {
         trunc_sqrt(self)

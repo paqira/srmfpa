@@ -107,6 +107,7 @@ pub enum RoundingMode {
 }
 
 impl RoundingMode {
+    #[inline]
     pub(crate) fn as_c_int(&self) -> c_int {
         match self {
             Self::NearestTiesEven => unsafe { c_TO_NEAREST },
@@ -125,6 +126,8 @@ impl RoundingMode {
     ///
     /// This tests the corresponding C macro's value is greater than or equals to 0,
     /// e.g., `0 <= TONEAREST`.
+    #[must_use]
+    #[inline]
     pub fn supported(&self) -> bool {
         unsafe { c_supported(self.as_c_int()) }
     }

@@ -55,6 +55,7 @@ macro_rules! impl_round_func_binary_all {
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $add, $add_fn
         );
@@ -66,6 +67,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $sub, $sub_fn
         );
@@ -77,6 +79,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $mul, $mul_fn
         );
@@ -88,6 +91,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $div, $div_fn
         );
@@ -98,6 +102,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
         )]
+        #[must_use = "method returns a new number and does not mutate the original value"]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty, mode: &RoundingMode) -> $ty {
             let mut dst: $ty = Default::default();
@@ -126,6 +131,7 @@ macro_rules! impl_non_round_func_binary_all {
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $add, $add_fn, $mode
         );
@@ -137,6 +143,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $sub, $sub_fn, $mode
         );
@@ -148,6 +155,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $mul, $mul_fn, $mode
         );
@@ -159,6 +167,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
+            #[must_use = "method returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $div, $div_fn, $mode
         );
@@ -169,6 +178,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
         )]
+        #[must_use = "method returns a new number and does not mutate the original value"]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty) -> $ty {
             $fma_fn(a, b, c, &RoundingMode::$mode)
@@ -178,6 +188,7 @@ Panics when fail to set/restore rounding mode."
 
 macro_rules! impl_round_binary {
     ($name:ident) => {
+        #[must_use = "method returns a new number and does not mutate the original value"]
         #[inline]
         fn $name(self, other: Self, mode: &RoundingMode) -> Self::Output {
             $name(self, other, mode)
@@ -186,6 +197,7 @@ macro_rules! impl_round_binary {
 }
 macro_rules! impl_round_ternary {
     ($name:ident) => {
+        #[must_use = "method returns a new number and does not mutate the original value"]
         #[inline]
         fn $name(self, a: Self, b: Self, mode: &RoundingMode) -> Self::Output {
             $name(self, a, b, mode)
@@ -195,6 +207,7 @@ macro_rules! impl_round_ternary {
 
 macro_rules! impl_non_round_binary {
     ($name:ident) => {
+        #[must_use = "method returns a new number and does not mutate the original value"]
         #[inline]
         fn $name(self, other: Self) -> Self::Output {
             $name(self, other)
@@ -204,6 +217,7 @@ macro_rules! impl_non_round_binary {
 
 macro_rules! impl_non_round_ternary {
     ($name:ident) => {
+        #[must_use = "method returns a new number and does not mutate the original value"]
         #[inline]
         fn $name(self, a: Self, b: Self) -> Self::Output {
             $name(self, a, b)
