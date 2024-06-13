@@ -11,15 +11,28 @@ permissions:
   contents: read
 
 jobs:
-  fmt-clippy:
+  build:
     runs-on: ubuntu-latest
     env:
-      CFLAGS: -frounding-math -std=c11
+      CFLAGS: -std=c11 -frounding-math
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@1.64
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build
+  fmt-clippy:
+    runs-on: ubuntu-latest
+    env:
+      CFLAGS: -std=c11 -frounding-math
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@nightly
         with:
           components: clippy, rustfmt
       - name: Cache Rust
@@ -27,21 +40,21 @@ jobs:
       - name: Format
         run: cargo fmt --check
       - name: Lint
-        run: cargo clippy
-  fma:
+        run: cargo +nightly clippy
+  hardfloat-f32-f64:
     runs-on: ubuntu-latest
     env:
-      RUSTFLAGS: -C target-feature=+fma
+#      use hardware fma
       CFLAGS: -std=c11 -frounding-math -mfma
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@1.64
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
       - name: Test
-        run: cargo +nightly test
+        run: cargo +nightly test --release
   softfloat:
     runs-on: ubuntu-latest
     env:
@@ -55,4 +68,4 @@ jobs:
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
       - name: Test
-        run: cargo +nightly test --release -F softfloat
+        run: cargo +nightly test --release -F softfloat -F f16-softfloat -F f128-softfloat
