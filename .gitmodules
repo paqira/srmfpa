@@ -1,0 +1,3 @@
+[submodule "fpa-specr-berkeley-softfloat/berkeley-softfloat-3"]
+	path = fpa-specr-berkeley-softfloat/berkeley-softfloat-3
+	url = https://github.com/ucb-bar/berkeley-softfloat-3.git

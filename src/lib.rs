@@ -1,9 +1,7 @@
-#![cfg_attr(any(feature = "f16-arithmetics", feature = "f16-math"), feature(f16))]
-#![cfg_attr(
-    any(feature = "f128-arithmetics", feature = "f128-math"),
-    feature(f128)
-)]
+#![cfg_attr(any(feature = "f16", feature = "f16-softfloat",), feature(f16))]
+#![cfg_attr(any(feature = "f128", feature = "f128-softfloat",), feature(f128))]
 #![cfg_attr(test, feature(float_next_up_down))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 //! Four floating-point arithmetic operations (including fused multiply-add) and square root,
 //! in specified rounding mode.
@@ -32,10 +30,23 @@
 //! assert_eq!(floor_add(0.1, 0.2), 0.3);
 //! ```
 //!
+//! # Features
+//!
+//! - `f32-softfloat` and `f64-softfloat`: support softfloat `f32` and `f64`
+//!   by [Berkeley SoftFloat 3][softfloat].
+//! - `f16-softfloat` and `f128-softfloat`: support softfloat `f16` and `f128`
+//!   by [Berkeley SoftFloat 3][softfloat].
+//! - `softfloat`: use softfloat for `f32` and `f64`
+//!   (enable `f32-softfloat` and `f64-softfloat`).
+//!
 //! # Notes on Correctness and Configuration
 //!
-//! Correctness depends on using C compiler and libc,
-//! because APIs of [`fpa_specr`][mod@self] call floating point ops implemented in C with `<fenv.h>`.
+//! [`fpa_specr`][mod@self] uses `float` for `f32` and `double` for `f64`
+//! with `<fenv.h>` for controlling the rounding mode as default.
+//! Rounding correctness depends on the environment (C compiler, libc, cpu etc.).
+//!
+//! [`fpa_specr`][mod@self] supports softfloat ops by [Berkeley SoftFloat 3][softfloat] with `fN-softfloat` features.
+//! It provides correctly rounding ops for evey IEEE rounding modes.
 //!
 //! [`fpa_specr`][mod@self] uses the default C compiler options of `cc`,
 //! and does not (explicitly) specify other options.
@@ -43,13 +54,20 @@
 //! to obtain the desired result.
 //! See [`cc` crate document][cc_doc] for detail of configuration.
 //!
+//! [softfloat]: https://github.com/ucb-bar/berkeley-softfloat-3
 //! [cc_doc]: https://docs.rs/cc/latest/cc/index.html
+#[cfg(all(feature = "f128", feature = "f128-softfloat"))]
+compile_error!("not supported features combination, `f128` and `f128-softfloat`");
+#[cfg(all(feature = "f16", feature = "f16-softfloat"))]
+compile_error!("not supported features combination, `f16` and `f16-softfloat`");
 
 use core::ffi::c_int;
 
-#[cfg(any(feature = "f128-arithmetics", feature = "f128-math"))]
+#[cfg(any(feature = "f128", feature = "f128-softfloat"))]
+#[cfg_attr(docsrs, doc(cfg(feature = "f128-softfloat")))]
 pub use r#impl::f128;
-#[cfg(any(feature = "f16-arithmetics", feature = "f16-math"))]
+#[cfg(any(feature = "f16", feature = "f16-softfloat"))]
+#[cfg_attr(docsrs, doc(cfg(feature = "f16-softfloat")))]
 pub use r#impl::f16;
 pub use r#impl::f32;
 pub use r#impl::f64;
@@ -100,6 +118,9 @@ impl RoundingMode {
 
     /// Returns `true` if the mode is supported.
     ///
+    /// Notes, all rounding modes are supported on softfloat,
+    /// even when this returns `false`.
+    ///
     /// # Implementation notes
     ///
     /// This tests the corresponding C macro's value is greater than or equals to 0,
@@ -112,9 +133,9 @@ impl RoundingMode {
 mod sealed {
     pub trait Sealed {}
 
-    #[cfg(any(feature = "f16-arithmetics", feature = "f16-math"))]
+    #[cfg(any(feature = "f16", feature = "f16-softfloat",))]
     impl Sealed for f16 {}
-    #[cfg(any(feature = "f128-arithmetics", feature = "f128-math"))]
+    #[cfg(any(feature = "f128", feature = "f128-softfloat",))]
     impl Sealed for f128 {}
     impl Sealed for f32 {}
     impl Sealed for f64 {}
