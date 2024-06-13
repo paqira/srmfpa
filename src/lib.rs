@@ -46,7 +46,7 @@
 //! Rounding correctness depends on the environment (C compiler, libc, CPU etc.).
 //!
 //! [`fpa_specr`][mod@self] supports softfloat ops by [Berkeley SoftFloat 3][softfloat] with `fN-softfloat` features.
-//! It provides correctly rounding ops for evey IEEE rounding modes.
+//! It provides correctly rounding ops for evey IEEE 754 rounding modes.
 //!
 //! [`fpa_specr`][mod@self] uses the default C compiler options of `cc`,
 //! and does not (explicitly) specify other options.
@@ -75,7 +75,7 @@ pub use r#impl::f64;
 mod r#impl;
 mod internal;
 
-/// rma_arith’s prelude.
+/// [fpa_specr][mod@self]’s prelude.
 pub mod prelude {
     // provides RoundingMode and traits only.
     pub use crate::RoundingMode;
