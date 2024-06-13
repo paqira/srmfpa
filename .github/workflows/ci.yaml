@@ -32,12 +32,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUSTFLAGS: -C target-feature=+fma
-      CFLAGS: -frounding-math -std=c11 -mfma
+      CFLAGS: -std=c11 -frounding-math -mfma
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Rust
-        uses: dtolnay/rust-toolchain@nightly
+        uses: dtolnay/rust-toolchain@stable
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
       - name: Test

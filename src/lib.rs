@@ -50,7 +50,7 @@
 //!
 //! [`fpa_specr`][mod@self] uses the default C compiler options of `cc`,
 //! and does not (explicitly) specify other options.
-//! It is recommended to pass corresponding options (`-lm`, `-std=c23`, `-frounding-math`, `-mfma` etc.)
+//! It is recommended to pass corresponding options (`-std=c11`, `-lm`, `-frounding-math`, `-mfma` etc.)
 //! to obtain the desired result.
 //! See [`cc` crate document][cc_doc] for detail of configuration.
 //!
@@ -89,6 +89,8 @@ extern "C" {
     static c_UPWARD: c_int;
     static c_DOWNWARD: c_int;
     static c_TOWARD_ZERO: c_int;
+
+    fn c_supported(round: c_int) -> bool;
 }
 
 /// Rounding mode
@@ -118,8 +120,13 @@ impl RoundingMode {
     ///
     /// Notes, all rounding modes are supported on softfloat,
     /// even when this returns `false`.
+    ///
+    /// # Implementation notes
+    ///
+    /// This tests the corresponding C macro's value is greater than or equals to 0,
+    /// e.g., `0 <= TONEAREST`.
     pub fn supported(&self) -> bool {
-        0 <= self.as_c_int()
+        unsafe { c_supported(self.as_c_int()) }
     }
 }
 
