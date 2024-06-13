@@ -58,7 +58,7 @@ jobs:
   softfloat:
     runs-on: ubuntu-latest
     env:
-      RUSTFLAGS: -C target-feature=native
+      RUSTFLAGS: -C target-cpu=native
       CFLAGS: -std=c11 -frounding-math -mfma
     steps:
       - name: Checkout
