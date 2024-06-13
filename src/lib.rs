@@ -41,9 +41,9 @@
 //!
 //! # Notes on Correctness and Configuration
 //!
-//! [`fpa_specr`][mod@self] uses `float` for `f32` and `double` for `f64`
-//! with `<fenv.h>` for controlling the rounding mode as default.
-//! Rounding correctness depends on the environment (C compiler, libc, cpu etc.).
+//! As default, [`fpa_specr`][mod@self] uses C lang floating-point ops,
+//! it maps `f32` (`f64`) to `float` (`double`) and controls rounding mode by `<fenv.h>`.
+//! Rounding correctness depends on the environment (C compiler, libc, CPU etc.).
 //!
 //! [`fpa_specr`][mod@self] supports softfloat ops by [Berkeley SoftFloat 3][softfloat] with `fN-softfloat` features.
 //! It provides correctly rounding ops for evey IEEE rounding modes.
@@ -77,11 +77,11 @@ mod internal;
 
 /// rma_arith’s prelude.
 pub mod prelude {
+    // provides RoundingMode and traits only.
+    pub use crate::RoundingMode;
     pub use crate::{CielArithmetic, FloorArithmetic, RoundTiesEvenArithmetic, TruncArithmetic};
     pub use crate::{CielMath, FloorMath, RoundTiesEvenMath, TruncMath};
     pub use crate::{RoundingArithmetic, RoundingMath};
-    // provides RoundingMode and traits only.
-    pub use crate::RoundingMode;
 }
 
 extern "C" {
