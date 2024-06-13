@@ -36,6 +36,8 @@
 //!   by [Berkeley SoftFloat 3][softfloat].
 //! - `f16-softfloat` and `f128-softfloat`: support softfloat `f16` and `f128`
 //!   by [Berkeley SoftFloat 3][softfloat].
+//! - `softfloat`: use softfloat for `f32` and `f64`
+//!   (enable `f32-softfloat` and `f64-softfloat`).
 //!
 //! # Notes on Correctness and Configuration
 //!

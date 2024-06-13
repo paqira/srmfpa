@@ -31,6 +31,7 @@ assert_eq!(floor_add(0.1, 0.2), 0.3);
 
 - `f32-softfloat` and `f64-softfloat`: support softfloat `f32` and `f64` by [Berkeley SoftFloat 3][softfloat].
 - `f16-softfloat` and `f128-softfloat`: support softfloat `f16` and `f128` by [Berkeley SoftFloat 3][softfloat].
+- `softfloat`: use softfloat for `f32` and `f64` (enable `f32-softfloat` and `f64-softfloat`).
 
 [softfloat]: https://github.com/ucb-bar/berkeley-softfloat-3
 
