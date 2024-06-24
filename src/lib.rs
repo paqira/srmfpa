@@ -32,10 +32,10 @@
 //!
 //! # Features
 //!
-//! - `f32-softfloat` and `f64-softfloat`: support softfloat `f32` and `f64`
-//!   by [Berkeley SoftFloat 3][softfloat].
-//! - `f16-softfloat` and `f128-softfloat`: support softfloat `f16` and `f128`
-//!   by [Berkeley SoftFloat 3][softfloat].
+//! - `f32-softfloat`: support softfloat `f32` by [Berkeley SoftFloat 3][softfloat].
+//! - `f64-softfloat`: support softfloat `f64` by [Berkeley SoftFloat 3][softfloat].
+//! - `f16-softfloat`: support softfloat `f16` by [Berkeley SoftFloat 3][softfloat].
+//! - `f128-softfloat`: support softfloat `f128` by [Berkeley SoftFloat 3][softfloat].
 //! - `softfloat`: use softfloat for `f32` and `f64`
 //!   (enable `f32-softfloat` and `f64-softfloat`).
 //!
@@ -93,7 +93,7 @@ extern "C" {
     fn c_supported(round: c_int) -> bool;
 }
 
-/// Rounding mode
+/// IEEE 754 rounding mode
 #[derive(Debug, Copy, Clone)]
 pub enum RoundingMode {
     /// To nearest, ties to even (`TONEAREST` in C).
@@ -122,7 +122,7 @@ impl RoundingMode {
     /// Notes, all rounding modes are supported on softfloat,
     /// even when this returns `false`.
     ///
-    /// # Implementation notes
+    /// # Implementation Notes
     ///
     /// This tests the corresponding C macro's value is greater than or equals to 0,
     /// e.g., `0 <= TONEAREST`.
