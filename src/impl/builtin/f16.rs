@@ -27,7 +27,7 @@ impl_func_unary!(
     /// # Safety
     ///
     /// Panics when fail to set/rest rounding mode.
-    #[must_use = "method returns a new number and does not mutate the original value"]
+    #[must_use = "function returns a new number and does not mutate the original value"]
     #[inline]
     => f16, round_sqrt, c_sqrt_f16
 );

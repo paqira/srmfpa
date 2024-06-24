@@ -13,7 +13,7 @@ fn to_f64(value: float64_t) -> f64 {
 }
 
 /// Returns `a + b` as specific rounding mode.
-#[must_use = "method returns a new number and does not mutate the original value"]
+#[must_use = "function returns a new number and does not mutate the original value"]
 #[inline]
 pub fn round_add(a: f64, b: f64, mode: &RoundingMode) -> f64 {
     let r = unsafe { c_add_f64(mode.as_berkeley_softfloat(), from_f64(a), from_f64(b)) };
@@ -21,7 +21,7 @@ pub fn round_add(a: f64, b: f64, mode: &RoundingMode) -> f64 {
 }
 
 /// Returns `a - b` as specific rounding mode.
-#[must_use = "method returns a new number and does not mutate the original value"]
+#[must_use = "function returns a new number and does not mutate the original value"]
 #[inline]
 pub fn round_sub(a: f64, b: f64, mode: &RoundingMode) -> f64 {
     let r = unsafe { c_sub_f64(mode.as_berkeley_softfloat(), from_f64(a), from_f64(b)) };
@@ -29,7 +29,7 @@ pub fn round_sub(a: f64, b: f64, mode: &RoundingMode) -> f64 {
 }
 
 /// Returns `a * b` as specific rounding mode.
-#[must_use = "method returns a new number and does not mutate the original value"]
+#[must_use = "function returns a new number and does not mutate the original value"]
 #[inline]
 pub fn round_mul(a: f64, b: f64, mode: &RoundingMode) -> f64 {
     let r = unsafe { c_mul_f64(mode.as_berkeley_softfloat(), from_f64(a), from_f64(b)) };
@@ -37,7 +37,7 @@ pub fn round_mul(a: f64, b: f64, mode: &RoundingMode) -> f64 {
 }
 
 /// Returns `a / b` as specific rounding mode.
-#[must_use = "method returns a new number and does not mutate the original value"]
+#[must_use = "function returns a new number and does not mutate the original value"]
 #[inline]
 pub fn round_div(a: f64, b: f64, mode: &RoundingMode) -> f64 {
     let r = unsafe { c_div_f64(mode.as_berkeley_softfloat(), from_f64(a), from_f64(b)) };
@@ -45,7 +45,7 @@ pub fn round_div(a: f64, b: f64, mode: &RoundingMode) -> f64 {
 }
 
 /// Returns `a * b + c` with single rounding (fused multiply-add) as specific rounding mode.
-#[must_use = "method returns a new number and does not mutate the original value"]
+#[must_use = "function returns a new number and does not mutate the original value"]
 #[inline]
 pub fn round_mul_add(a: f64, b: f64, c: f64, mode: &RoundingMode) -> f64 {
     let r = unsafe {
@@ -60,7 +60,7 @@ pub fn round_mul_add(a: f64, b: f64, c: f64, mode: &RoundingMode) -> f64 {
 }
 
 /// Returns `a.sqrt()` as specific rounding mode.
-#[must_use = "method returns a new number and does not mutate the original value"]
+#[must_use = "function returns a new number and does not mutate the original value"]
 #[inline]
 pub fn round_sqrt(a: f64, mode: &RoundingMode) -> f64 {
     let r = unsafe { c_sqrt_f64(mode.as_berkeley_softfloat(), from_f64(a)) };

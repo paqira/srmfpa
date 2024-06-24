@@ -55,7 +55,7 @@ macro_rules! impl_round_func_binary_all {
 
 Panics when fail to set/restore rounding mode."
             )]
-            #[must_use = "method returns a new number and does not mutate the original value"]
+            #[must_use = "function returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $add, $add_fn
         );
@@ -67,7 +67,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
-            #[must_use = "method returns a new number and does not mutate the original value"]
+            #[must_use = "function returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $sub, $sub_fn
         );
@@ -79,7 +79,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
-            #[must_use = "method returns a new number and does not mutate the original value"]
+            #[must_use = "function returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $mul, $mul_fn
         );
@@ -91,7 +91,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
             )]
-            #[must_use = "method returns a new number and does not mutate the original value"]
+            #[must_use = "function returns a new number and does not mutate the original value"]
             #[inline]
             => $ty, $div, $div_fn
         );
@@ -102,7 +102,7 @@ Panics when fail to set/restore rounding mode."
 
 Panics when fail to set/restore rounding mode."
         )]
-        #[must_use = "method returns a new number and does not mutate the original value"]
+        #[must_use = "function returns a new number and does not mutate the original value"]
         #[inline]
         pub fn $fma(a: $ty, b: $ty, c: $ty, mode: &RoundingMode) -> $ty {
             let mut dst: $ty = Default::default();
