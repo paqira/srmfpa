@@ -1,16 +1,4 @@
-#[cfg(not(all(
-    feature = "f16-softfloat",
-    feature = "f32-softfloat",
-    feature = "f64-softfloat",
-    feature = "f128-softfloat"
-)))]
 pub(crate) mod builtin;
-#[cfg(any(
-    feature = "f16-softfloat",
-    feature = "f32-softfloat",
-    feature = "f64-softfloat",
-    feature = "f128-softfloat"
-))]
 pub(crate) mod softfloat;
 
 #[cfg(any(feature = "f128", feature = "f128-softfloat"))]
