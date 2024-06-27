@@ -32,23 +32,23 @@
 //!
 //! # Features
 //!
+//! - `softfloat`: use softfloat for `f32` and `f64`
+//!   (enable `f32-softfloat` and `f64-softfloat`).
 //! - `f32-softfloat`: support softfloat `f32` by [Berkeley SoftFloat 3][softfloat].
 //! - `f64-softfloat`: support softfloat `f64` by [Berkeley SoftFloat 3][softfloat].
 //! - `f16-softfloat`: support softfloat `f16` by [Berkeley SoftFloat 3][softfloat].
 //! - `f128-softfloat`: support softfloat `f128` by [Berkeley SoftFloat 3][softfloat].
-//! - `softfloat`: use softfloat for `f32` and `f64`
-//!   (enable `f32-softfloat` and `f64-softfloat`).
 //!
 //! # Notes on Correctness and Configuration
 //!
-//! As default, [`fpa_specr`][mod@self] uses C lang floating-point ops,
+//! As default, [`srmfpa`][mod@self] uses C lang floating-point ops,
 //! it maps `f32` (`f64`) to `float` (`double`) and controls rounding mode by `<fenv.h>`.
-//! Rounding correctness depends on the environment (C compiler, libc, CPU etc.).
+//! Thus, rounding correctness depends on the environment (C compiler, libc, CPU etc.).
 //!
-//! [`fpa_specr`][mod@self] supports softfloat ops by [Berkeley SoftFloat 3][softfloat] with `fN-softfloat` features.
-//! It provides correctly rounding ops for evey IEEE 754 rounding modes.
+//! [`srmfpa`][mod@self] supports softfloat ops by [Berkeley SoftFloat 3][softfloat] with `fN-softfloat` features.
+//! It provides correct rounding ops for evey IEEE 754 rounding modes.
 //!
-//! [`fpa_specr`][mod@self] uses the default C compiler options of `cc`,
+//! [`srmfpa`][mod@self] uses the default C compiler options of `cc`,
 //! and does not (explicitly) specify other options.
 //! It is recommended to pass corresponding options (`-std=c11`, `-lm`, `-frounding-math`, `-mfma` etc.)
 //! to obtain the desired result.
