@@ -17,5 +17,5 @@ fn main() {
 
     builder.compile("c_impl");
 
-    println!("build-command:{:?}", builder.get_compiler().to_command());
+    println!("cc:build-command={:?}", builder.get_compiler().to_command());
 }

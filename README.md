@@ -1,10 +1,10 @@
-# fpa-specr
+# srmfpa
 
-Four floating-point arithmetic operations (including fused multiply-add) and square root,
-in specified rounding mode.
+Floating-point's four arithmetic operations (including fused multiply-add) and square root
+with strict rounding mode.
 
 ```rust
-use fpa_specr::prelude::*;
+use srmfpa::prelude::*;
 
 // Support add, sub, mul, div, mul_add (fma) and sqrt
 
@@ -22,7 +22,7 @@ assert_eq!((-0.1).trunc_add(-0.2), -0.3);
 assert_eq!(0.1.round_add(0.2, &RoundingMode::NearestTiesEven), 0.30000000000000004);
 
 // Functions are available
-use fpa_specr::f64::{ciel_add, floor_add};
+use srmfpa::f64::{ciel_add, floor_add};
 assert_eq!(ciel_add(0.1, 0.2), 0.30000000000000004);
 assert_eq!(floor_add(0.1, 0.2), 0.3);
 ```

@@ -1,4 +1,4 @@
-use fpa_specr_berkeley_softfloat::*;
+use srmfpa_berkeley_softfloat_3::*;
 
 use crate::RoundingMode;
 

@@ -1,19 +1,19 @@
 [package]
-name = "fpa-specr"
+name = "srmfpa"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.64"  # by std::ffi
 authors = ["Kentaro Tatsumi <paqira.2019@gmail.com>"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/paqira/fpa-specr"
-description = "Four floating-point arithmetic operations (including fused multiply-add) and square root in specified rounding mode"
-keywords = ["floating-point", "rounding-mode"]
+repository = "https://github.com/paqira/srmfpa"
+description = "Floating-point's four arithmetic operations (including fused multiply-add) and square root with strict rounding mode"
+keywords = ["floating-point", "rounding-mode", "correct-rounding"]
 readme = "README.md"
 exclude = [".*"]
 categories = ["mathematics", "science"]
 
 [dependencies]
-fpa-specr-berkeley-softfloat = { path = "fpa-specr-berkeley-softfloat", version = "=0.1.0", optional = true }
+srmfpa-berkeley-softfloat-3 = { path = "srmfpa-berkeley-softfloat-3", version = "=0.1.0", optional = true }
 
 [build-dependencies]
 cc = { version = "1" }
@@ -22,12 +22,12 @@ cc = { version = "1" }
 f16 = []
 f128 = []
 softfloat = ["f32-softfloat", "f64-softfloat"]
-f16-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
-f32-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
-f64-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
-f128-softfloat = ["dep:fpa-specr-berkeley-softfloat"]
+f16-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+f32-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+f64-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+f128-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
 
 [workspace]
 members = [
-    "fpa-specr-berkeley-softfloat",
+    "srmfpa-berkeley-softfloat-3",
 ]
