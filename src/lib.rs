@@ -96,13 +96,13 @@ extern "C" {
 /// IEEE 754 rounding mode
 #[derive(Debug, Copy, Clone)]
 pub enum RoundingMode {
-    /// To nearest, ties to even (`TONEAREST` in C).
+    /// To nearest, ties to even.
     NearestTiesEven,
-    /// Toward 0 (trunc, `TOWARDZERO` in C).
+    /// Toward 0 (aka trunc).
     TowardZero,
-    /// Toward +∞ (ciel, `UPWARD` in C).
+    /// Toward +∞ (aka ciel).
     TowardPosInf,
-    /// Toward -∞ (floor, `DOWNWARD` in C).
+    /// Toward -∞ (aka floor).
     TowardNegInf,
 }
 
