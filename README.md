@@ -1,5 +1,11 @@
 # srmfpa
 
+[![Crates.io Version](https://img.shields.io/crates/v/srmfpa?logo=rust)](https://crates.io/crates/srmfpa)
+[![Crates.io MSRV](https://img.shields.io/crates/msrv/srmfpa?logo=rust)](https://rust-lang.github.io/rfcs/2495-min-rust-version.html)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/paqira/srmfpa/ci.yaml?logo=GitHub)
+[![docs.rs](https://img.shields.io/docsrs/srmfpa?logo=rust)](https://docs.rs/srmfpa/)
+![Crates.io License](https://img.shields.io/crates/l/srmfpa)
+
 Floating-point's four arithmetic operations (including fused multiply-add) and square root
 with strict rounding mode.
 
