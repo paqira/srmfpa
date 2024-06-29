@@ -188,6 +188,8 @@ impl TruncMath for f16 {
     }
 }
 
+// TODO: use f16::next_up() and f16::next_down() if they are implemented
+
 #[cfg(test)]
 mod test_fn_arith {
     use crate::RoundingMode as Mode;

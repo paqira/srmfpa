@@ -187,3 +187,5 @@ impl TruncMath for f128 {
         trunc_sqrt(self)
     }
 }
+
+// TODO: add test when f128 support eq

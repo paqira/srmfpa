@@ -1202,6 +1202,7 @@ fn main() {
         builder.include("src/c/platform/empty");
     }
 
+    // use c99 inline
     builder.define("INLINE", Some("inline"));
     builder.define("LITTLEENDIAN", Some("1"));
     builder.define("SOFTFLOAT_BUILTIN_CLZ", Some("1"));
