@@ -1,5 +1,5 @@
-#![cfg_attr(any(feature = "f16", feature = "f16-softfloat",), feature(f16))]
-#![cfg_attr(any(feature = "f128", feature = "f128-softfloat",), feature(f128))]
+#![cfg_attr(any(feature = "f16", feature = "f16_softfloat",), feature(f16))]
+#![cfg_attr(any(feature = "f128", feature = "f128_softfloat",), feature(f128))]
 #![cfg_attr(test, feature(float_next_up_down))]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
@@ -56,18 +56,18 @@
 //!
 //! [softfloat]: https://github.com/ucb-bar/berkeley-softfloat-3
 //! [cc_doc]: https://docs.rs/cc/latest/cc/index.html
-#[cfg(all(feature = "f128", feature = "f128-softfloat"))]
+#[cfg(all(feature = "f128", feature = "f128_softfloat"))]
 compile_error!("not supported features combination, `f128` and `f128-softfloat`");
-#[cfg(all(feature = "f16", feature = "f16-softfloat"))]
+#[cfg(all(feature = "f16", feature = "f16_softfloat"))]
 compile_error!("not supported features combination, `f16` and `f16-softfloat`");
 
 use core::ffi::c_int;
 
-#[cfg(any(feature = "f128", feature = "f128-softfloat"))]
-#[cfg_attr(docsrs, doc(cfg(feature = "f128-softfloat")))]
+#[cfg(any(feature = "f128", feature = "f128_softfloat"))]
+#[cfg_attr(docsrs, doc(cfg(feature = "f128_softfloat")))]
 pub use r#impl::f128;
-#[cfg(any(feature = "f16", feature = "f16-softfloat"))]
-#[cfg_attr(docsrs, doc(cfg(feature = "f16-softfloat")))]
+#[cfg(any(feature = "f16", feature = "f16_softfloat"))]
+#[cfg_attr(docsrs, doc(cfg(feature = "f16_softfloat")))]
 pub use r#impl::f16;
 pub use r#impl::f32;
 pub use r#impl::f64;
@@ -136,9 +136,9 @@ impl RoundingMode {
 mod sealed {
     pub trait Sealed {}
 
-    #[cfg(any(feature = "f16", feature = "f16-softfloat",))]
+    #[cfg(any(feature = "f16", feature = "f16_softfloat",))]
     impl Sealed for f16 {}
-    #[cfg(any(feature = "f128", feature = "f128-softfloat",))]
+    #[cfg(any(feature = "f128", feature = "f128_softfloat",))]
     impl Sealed for f128 {}
     impl Sealed for f32 {}
     impl Sealed for f64 {}

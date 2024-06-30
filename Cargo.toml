@@ -21,11 +21,11 @@ cc = { version = "1" }
 [features]
 f16 = []
 f128 = []
-softfloat = ["f32-softfloat", "f64-softfloat"]
-f16-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
-f32-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
-f64-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
-f128-softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+softfloat = ["f32_softfloat", "f64_softfloat"]
+f16_softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+f32_softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+f64_softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
+f128_softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
 
 [workspace]
 members = [

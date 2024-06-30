@@ -8,7 +8,7 @@ use crate::{RoundingArithmetic, RoundingMath};
 
 #[cfg(feature = "f16")]
 pub use crate::r#impl::builtin::f16::*;
-#[cfg(feature = "f16-softfloat")]
+#[cfg(feature = "f16_softfloat")]
 pub use crate::r#impl::softfloat::f16::*;
 
 impl_non_round_func_binary_all!(

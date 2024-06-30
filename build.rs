@@ -6,10 +6,10 @@ fn main() {
     #[cfg(feature = "f16")]
     builder.file("src/c/f16.c");
 
-    #[cfg(not(feature = "f32-softfloat"))]
+    #[cfg(not(feature = "f32_softfloat"))]
     builder.file("src/c/f32.c");
 
-    #[cfg(not(feature = "f64-softfloat"))]
+    #[cfg(not(feature = "f64_softfloat"))]
     builder.file("src/c/f64.c");
 
     #[cfg(feature = "f128")]

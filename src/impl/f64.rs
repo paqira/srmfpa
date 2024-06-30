@@ -8,9 +8,9 @@ use crate::{CielArithmetic, FloorArithmetic, RoundTiesEvenArithmetic, TruncArith
 use crate::{CielMath, FloorMath, RoundTiesEvenMath, TruncMath};
 use crate::{RoundingArithmetic, RoundingMath};
 
-#[cfg(not(feature = "f64-softfloat"))]
+#[cfg(not(feature = "f64_softfloat"))]
 pub use crate::r#impl::builtin::f64::*;
-#[cfg(feature = "f64-softfloat")]
+#[cfg(feature = "f64_softfloat")]
 pub use crate::r#impl::softfloat::f64::*;
 
 impl_non_round_func_binary_all!(
