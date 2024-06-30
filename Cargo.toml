@@ -31,3 +31,7 @@ f128_softfloat = ["dep:srmfpa-berkeley-softfloat-3"]
 members = [
     "srmfpa-berkeley-softfloat-3",
 ]
+
+[package.metadata.docs.rs]
+features = ["f16_softfloat", "f128_softfloat"]
+rustdoc-args = ["--cfg", "docsrs"]
