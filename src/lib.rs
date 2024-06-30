@@ -57,9 +57,9 @@
 //! [softfloat]: https://github.com/ucb-bar/berkeley-softfloat-3
 //! [cc_doc]: https://docs.rs/cc/latest/cc/index.html
 #[cfg(all(feature = "f128", feature = "f128_softfloat"))]
-compile_error!("not supported features combination, `f128` and `f128-softfloat`");
+compile_error!("not supported features combination, `f128` and `f128_softfloat`");
 #[cfg(all(feature = "f16", feature = "f16_softfloat"))]
-compile_error!("not supported features combination, `f16` and `f16-softfloat`");
+compile_error!("not supported features combination, `f16` and `f16_softfloat`");
 
 use core::ffi::c_int;
 
