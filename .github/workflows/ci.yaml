@@ -71,4 +71,4 @@ jobs:
       - name: Cache Rust
         uses: Swatinem/rust-cache@v2
       - name: Test
-        run: cargo +nightly test --release -F softfloat -F f16-softfloat -F f128-softfloat
+        run: cargo +nightly test --release -F softfloat -F f16_softfloat -F f128_softfloat
